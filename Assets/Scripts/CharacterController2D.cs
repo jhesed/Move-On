@@ -119,7 +119,6 @@ public class CharacterController2D : MonoBehaviour {
 
         // Set the grounded animation states
 
-        Debug.Log("Grounded: " + _animator.GetBool("Grounded"));
         _animator.SetBool("Grounded", _isGrounded);
         
         if (_isGrounded && CrossPlatformInputManager.GetButtonDown("Jump")) // If grounded AND jump button pressed, then allow the player to jump
@@ -177,7 +176,7 @@ public class CharacterController2D : MonoBehaviour {
 	// so it will go for a ride on the MovingPlatform
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		if (other.gameObject.tag=="MovingPlatform")
+		if (other.gameObject.tag=="Platform" || other.gameObject.tag == "IcyPlatform")
 		{
 			this.transform.parent = other.transform;
 		}
@@ -186,12 +185,31 @@ public class CharacterController2D : MonoBehaviour {
 	// if the player exits a collision with a moving platform, then unchild it
 	void OnCollisionExit2D(Collision2D other)
 	{
-		if (other.gameObject.tag=="MovingPlatform")
+		if (other.gameObject.tag=="Platform" || other.gameObject.tag == "IcyPlatform")
 		{
 			this.transform.parent = null;
 		}
 	}
 
+    void OnTriggerEnter(Collider other)
+    {
+        // Make the floor very slippery
+        if (other.gameObject.tag == "IcyPlatform")
+        {
+            _rigidbody.AddForce(Vector3.up * 10);
+            GetComponent<Collider>().material.dynamicFriction = 0;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        // Remove Slippery floor
+        if (other.gameObject.tag == "IcyPlatform")
+        {
+            GetComponent<Collider>().material.dynamicFriction = 1;
+
+        }
+    }
     // Make the player jump
     void DoJump() {
         // reset current vertical motion to 0 prior to jump
@@ -291,4 +309,5 @@ public class CharacterController2D : MonoBehaviour {
     public void EnemyBounce() {
         DoJump();
     }
+
 }
