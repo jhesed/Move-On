@@ -25,6 +25,10 @@ public class FallingObject : MonoBehaviour
     {
         _transform = platform.transform;
 
+        // Randomize platform width
+        _transform.localScale = new Vector3(Random.Range(0, maxPlatformWidth), 1, 1);
+
+        /*
         float height = Camera.main.orthographicSize * 2.0f;
         float width = height * Screen.width / Screen.height;
         //float xCoord = Random.Range(0.0f, width);
@@ -35,14 +39,13 @@ public class FallingObject : MonoBehaviour
             xCoord *= 1;
         }
         _transform.position = Camera.main.ViewportToWorldPoint(new Vector2(xCoord, 1.0f));
-
+        */
         /*
         Debug.Log("random: " + xCoord);
         _transform.position = Camera.main.ViewportToWorldPoint(new Vector2(xCoord, 1));
         */
         // Instantiate to random position
         /*
-        _transform.localScale = new Vector3(Random.Range(0, maxPlatformWidth), 1, 1);
         _transform.position = new Vector3(
             _transform.position.y - 5 * Random.value)), // Random y position 
             5,  // fall from top 
