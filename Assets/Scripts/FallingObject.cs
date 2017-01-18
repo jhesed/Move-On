@@ -11,17 +11,35 @@ using System.Collections;
 public class FallingObject : MonoBehaviour
 {
 
+    public GameObject mainCamera; // the main camera of the game
     public GameObject platform; // reference to the platform to move
     public float fallSpeed = 5f; // fall speed of the object
-    
+    public float range = Screen.width;
+    public int maxPlatformWidth = 4;  // How wide the platform can be?
+
     // private variables
 
     Transform _transform;
-  
+    
     // Use this for initialization
     void Start()
     {
         _transform = platform.transform;
+
+        // Instantiate to random position
+        _transform.localScale = new Vector3(Random.Range(0, maxPlatformWidth), 1, 1);
+        _transform.position = new Vector3(
+            _transform.position.x - range * Random.value, // Random y position 
+            5,  // fall from top 
+            _transform.position.z);
+        
+        //Camera camera = Camera.main;
+        //_transform.position = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.)); // Random y position, 1, camera.nearClipPlane));
+
+        //Vector3 worldPoint = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 5));
+        //_transform.position = worldPoint;
+
+
     }
 
     // game loop
@@ -35,7 +53,6 @@ public class FallingObject : MonoBehaviour
         else
         {
             // Destroy object for optimization
-            Debug.Log("(FallingObject) invisible in screen, destroying");
             Destroy(platform);
         }
     }

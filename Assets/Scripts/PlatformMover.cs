@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlatformMover : MonoBehaviour {
 
@@ -16,7 +15,6 @@ public class PlatformMover : MonoBehaviour {
 	// private variables
 
 	Transform _transform;
-	int _myWaypointIndex = 0;		// used as index for My_Waypoints
 
     // Use this for initialization
     void Start () {
