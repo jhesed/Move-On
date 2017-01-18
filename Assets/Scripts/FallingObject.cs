@@ -14,7 +14,6 @@ public class FallingObject : MonoBehaviour
     public GameObject mainCamera; // the main camera of the game
     public GameObject platform; // reference to the platform to move
     public float fallSpeed = 5f; // fall speed of the object
-    public float range = Screen.width;
     public int maxPlatformWidth = 4;  // How wide the platform can be?
 
     // private variables
@@ -26,13 +25,29 @@ public class FallingObject : MonoBehaviour
     {
         _transform = platform.transform;
 
+        float height = Camera.main.orthographicSize * 2.0f;
+        float width = height * Screen.width / Screen.height;
+        //float xCoord = Random.Range(0.0f, width);
+        //float xCoord = Random.Range(0.0f, Screen.width)/100;
+        float xCoord = Random.Range(0.0f, Camera.main.orthographicSize);
+        int isNegative = Random.Range(0, 1);
+        if (isNegative == 1) {
+            xCoord *= 1;
+        }
+        _transform.position = Camera.main.ViewportToWorldPoint(new Vector2(xCoord, 1.0f));
+
+        /*
+        Debug.Log("random: " + xCoord);
+        _transform.position = Camera.main.ViewportToWorldPoint(new Vector2(xCoord, 1));
+        */
         // Instantiate to random position
+        /*
         _transform.localScale = new Vector3(Random.Range(0, maxPlatformWidth), 1, 1);
         _transform.position = new Vector3(
-            _transform.position.x - range * Random.value, // Random y position 
+            _transform.position.y - 5 * Random.value)), // Random y position 
             5,  // fall from top 
             _transform.position.z);
-        
+        */
         //Camera camera = Camera.main;
         //_transform.position = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.)); // Random y position, 1, camera.nearClipPlane));
 

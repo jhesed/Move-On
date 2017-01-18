@@ -3,11 +3,12 @@
 public class PlatformGenerator : MonoBehaviour
 {
     public GameObject[] platforms;
+    public float minSpawnTime = 0.5f;
+    public float maxSpawnTime = 1.5f;
 
     int _randomRockIndex = 0;
     int _currentMaxRandom = 5;
     int _generatorCounter = 0;
-
 
     // Allows platforms to be shown after this count
     int __displayPlatform1AfterCount = 0;
@@ -19,7 +20,7 @@ public class PlatformGenerator : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        InvokeRepeating("GeneratePlatform", 5f, 1.5f);
+        InvokeRepeating("GeneratePlatform", 1f, 1.5f);
     }
 
     void GeneratePlatform()
