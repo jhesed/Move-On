@@ -11,7 +11,6 @@ using System.Collections;
 public class FallingObject : MonoBehaviour
 {
 
-    public GameObject mainCamera; // the main camera of the game
     public GameObject platform; // reference to the platform to move
     public float fallSpeed = 5f; // fall speed of the object
     public int maxPlatformWidth = 4;  // How wide the platform can be?
